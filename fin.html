@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>SURPRISE!!!</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Great Vibes'; /* Police plus élégante */
+        background-color: #ffe0f0;
+        color: #000000;
+        padding: 20px;
+        font-size: 24px;
+    }
+    #letter {
+        white-space: pre-wrap;
+        width: 600px;
+        margin: 50px auto;
+        border: 2px solid #ff1493;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(255,105,180, .4);
+        background: rgba(255, 255, 255, 0.8);
+    }
+    .bg_heart {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            top: -50%;
+            transform: rotate(-45deg);
+        }
+
+        .heart:before, .heart:after {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: 100%;
+        }
+
+        .heart:before {
+            top: -50%;
+            left: 0;
+        }
+
+        .heart:after {
+            top: 0;
+            right: -50%;
+        }
+
+        @keyframes love {
+            0% { top: 110%; }
+            100% { top: -10%; }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px; /* Ajuster la taille de la police si nécessaire */
+            color: #FF69B4; /* Couleur rose vif, utilisez 'color' au lieu de 'fill' pour le texte */
+            text-align: center; /* Centre le texte horizontalement */
+            margin-top: 20px; /* Ajoutez une marge au-dessus si nécessaire */
+            margin-bottom: 20px; /* Ajoutez une marge en dessous si nécessaire */
+            width: 100%; /* Assure que le h1 prend toute la largeur */
+        }
+
+</style>
+</head>
+<body>
+    <div class="bg_heart"></div>
+    <main>
+        <h1>JOYEUX ANNIVERSAIRE SILYAAAA !!!!!</h1>  <!-- Titre ajouté ici -->
+        <div id="letter"></div>
+    </main>
+        <script>
+            const text = `Ma Cherie d’amour
+Ma silyouuu adorée 
+Mon soleil rayonnant
+Ma princesse préféré
+La plus belle des fleurs (dedicace a mon gars zamdane) 
+
+Tant de surnom qui pourrons jamais decrire a quelle point je t’aime et a quelle point je tiens a toi
+Je veux vraiment pas te perdre 
+Je te veux toi et pas une autre elle sont toute devenu fade a côté de toi
+Je veux finir ma vie avec toi, fonder une famille, voyager dans le monde entier, se date tout les jours, se faire des calins et des bisous, jouer ensemble, s’embêter, manger ensemble, dormir ensemble breft tout tout tout
+Je t’aime et je t’aimerais tout ma vie et dans toutes les circonstances peu importe ce qui arrive mon coeur t’appartient 
+
+Je soutiendrai Silya jusqu'à la fin. Si la Silya a 100 000 fan, je suis parmis eux. Si Silya a 1 supporter, c'est moi. Si le monde est contre Silya, alors je suis contre le monde. Et si Silya n'a plus aucun alliés, c'est que je suis mort.
+
+Bref sur ceux jespere que ton 1er cadeau t’as plu et cest que le début 
+Bisouuus je t’aime
+Joyeux Anniversaire Silya
+
+Ton amoureux Amir`;
+            let index = 0;
+            const speed = 100;  // Vitesse de frappe ajustée
+
+            function typeWriter() {
+                if (index < text.length) {
+                    document.getElementById('letter').innerHTML += text.charAt(index);
+                    index++;
+                    setTimeout(typeWriter, speed);
+                }
+            }
+
+            window.onload = function() {
+                typeWriter();
+            };
+
+            setInterval(function() {
+            var r_num = Math.floor(Math.random() * 40) + 1;
+            var r_size = Math.floor(Math.random() * 65) + 10;
+            var r_left = Math.floor(Math.random() * 100) + 1;
+            var r_bg = Math.floor(Math.random() * 25) + 100;
+            var r_time = Math.floor(Math.random() * 5) + 5;
+
+            const heart1 = document.createElement('div');
+            heart1.className = 'heart';
+            heart1.style.width = r_size + 'px';
+            heart1.style.height = r_size + 'px';
+            heart1.style.left = r_left + '%';
+            heart1.style.background = `rgba(255,${r_bg - 25},${r_bg},1)`;
+            heart1.style.animation = `love ${r_time}s ease`;
+            document.querySelector('.bg_heart').appendChild(heart1);
+
+            const heart2 = document.createElement('div');
+            heart2.className = 'heart';
+            heart2.style.width = (r_size - 10) + 'px';
+            heart2.style.height = (r_size - 10) + 'px';
+            heart2.style.left = (r_left + r_num) + '%';
+            heart2.style.background = `rgba(255,${r_bg - 25},${r_bg + 25},1)`;
+            heart2.style.animation = `love ${r_time + 5}s ease`;
+            document.querySelector('.bg_heart').appendChild(heart2);
+
+            document.querySelectorAll('.heart').forEach(function(heart) {
+                var top = parseFloat(window.getComputedStyle(heart).top);
+                var width = parseFloat(window.getComputedStyle(heart).width);
+                if (top <= -100 || width >= 150) {
+                    heart.remove();
+                }
+            });
+        }, 200); // Reduced interval for higher frequency
+        </script>
+    </body>
+</html>

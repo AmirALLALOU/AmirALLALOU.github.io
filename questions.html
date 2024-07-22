@@ -1,0 +1,495 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta charset="UTF-8">
+    <title>SURPRISE!!!</title>
+    <link rel="stylesheet" type="text/css" href="./css/question.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .bg_heart {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            top: -50%;
+            transform: rotate(-45deg);
+        }
+
+        .heart:before, .heart:after {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: 100%;
+        }
+
+        .heart:before {
+            top: -50%;
+            left: 0;
+        }
+
+        .heart:after {
+            top: 0;
+            right: -50%;
+        }
+
+        @keyframes love {
+            0% { top: 110%; }
+            100% { top: -10%; }
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 36px;
+            color: #FF69B4; /* Hot pink color */
+            margin-top: 20px;
+            text-shadow: 2px 2px #ff6b6b;
+        }
+
+        .question-container {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            max-width: 600px;
+            width: 80%;
+        }
+
+        .question {
+            color: #666;
+            font-size: 24px;
+            margin: 20px;
+        }
+
+        .button-container {
+            margin: 20px;
+        }
+
+        .button {
+            font-size: 16px;
+            padding: 15px 30px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.2s;
+        }
+
+        .button-yes {
+            background-color: #00b894;
+            color: white;
+            box-shadow: 0 5px #098d73;
+        }
+
+        .button-yes:hover {
+            background-color: #00e6a8;
+            transform: translateY(-2px);
+        }
+
+        .button-yes:active {
+            background-color: #00b894;
+            box-shadow: 0 2px #098d73;
+            transform: translateY(2px);
+        }
+
+        .button-no {
+            background-color: #d63031;
+            color: white;
+            box-shadow: 0 5px #b22222;
+        }
+
+        .button-no:hover {
+            background-color: #ff7675;
+            transform: translateY(-2px);
+        }
+
+        .button-no:active {
+            background-color: #d63031;
+            box-shadow: 0 2px #b22222;
+            transform: translateY(2px);
+        }
+
+        .timeline-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80%;
+            margin: 20px 0;
+        }
+
+        .timeline-segment {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            background: url('./path/to/arrow.png') no-repeat center;
+            background-size: contain;
+        }
+
+        .timeline-label {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .timeline-slot {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 100px;
+            border: 2px dashed #666;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .photos {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 80%;
+        }
+
+        .photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            cursor: grab;
+            transition: transform 0.2s;
+        }
+
+        .photo:active {
+            cursor: grabbing;
+        }
+
+        .button-validate {
+            font-size: 16px;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            background-color: #098d73;
+            color: white;
+            box-shadow: 0 5px #066a57;
+            transition: transform 0.2s;
+        }
+
+        .button-validate:hover {
+            background-color: #00b894;
+            transform: translateY(-2px);
+        }
+
+        .button-validate:active {
+            background-color: #098d73;
+            box-shadow: 0 2px #066a57;
+            transform: translateY(2px);
+        }
+
+        .message-container {
+            display: none;
+            font-size: 24px;
+            color: #333;
+            margin: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .error-message, .success-message {
+            display: none;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        .error-message {
+            color: red;
+        }
+
+        .success-message {
+            color: green;
+        }
+
+        @-webkit-keyframes love {
+            0% { top: 110%; }
+            100% { top: -10%; }
+        }
+
+        @-moz-keyframes love {
+            0% { top: 110%; }
+            100% { top: -10%; }
+        }
+
+        @-ms-keyframes love {
+            0% { top: 110%; }
+            100% { top: -10%; }
+        }
+
+        @keyframes love {
+            0% { top: 110%; }
+            100% { top: -10%; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg_heart"></div>
+    <h1>Questions</h1>
+    <div class="question-container">
+        <p class="question" id="question">Deja est-ce que tu es pretes mon amour ?</p>
+        <div class="button-container">
+            <button class="button button-yes" id="yes-button" onclick="handleYes()">Oui</button>
+            <button class="button button-no" id="no-button" onclick="handleNo()">Non</button>
+        </div>
+    </div>
+
+    <div class="message-container" id="message-container">
+        <p>non ://</p>
+    </div>
+
+    <div class="timeline-container" id="timeline-container">
+        <div class="timeline">
+            <div class="timeline-segment">
+                <div class="timeline-label">28/04/2023</div>
+                <div class="timeline-slot" id="slot1"></div>
+            </div>
+            <div class="timeline-segment">
+                <div class="timeline-label">31/04/2023</div>
+                <div class="timeline-slot" id="slot2"></div>
+            </div>
+            <div class="timeline-segment">
+                <div class="timeline-label">16/06/2023</div>
+                <div class="timeline-slot" id="slot3"></div>
+            </div>
+            <div class="timeline-segment">
+                <div class="timeline-label">03/08/2023</div>
+                <div class="timeline-slot" id="slot4"></div>
+            </div>
+            <div class="timeline-segment">
+                <div class="timeline-label">15/08/2023</div>
+                <div class="timeline-slot" id="slot5"></div>
+            </div>
+            <div class="timeline-segment">
+                <div class="timeline-label">02/02/2024</div>
+                <div class="timeline-slot" id="slot6"></div>
+            </div>
+            <div class="timeline-segment">
+                <div class="timeline-label">29/05/2024</div>
+                <div class="timeline-slot" id="slot7"></div>
+            </div>
+            <div class="timeline-segment">
+                <div class="timeline-label">04/06/2024</div>
+                <div class="timeline-slot" id="slot8"></div>
+            </div>
+            <div class="timeline-segment">
+                <div class="timeline-label">30/06/2024</div>
+                <div class="timeline-slot" id="slot9"></div>
+            </div>
+            <div class="timeline-segment">
+                <div class="timeline-label">20/07/2024</div>
+                <div class="timeline-slot" id="slot10"></div>
+            </div>
+        </div>
+        <div class="photos" id="photos">
+            <img src="photo2.jpg" class="photo" id="photo2" draggable="true" ondragstart="drag(event)">
+            <img src="photo1.jpg" class="photo" id="photo1" draggable="true" ondragstart="drag(event)">
+            <img src="photo10.jpg" class="photo" id="photo10" draggable="true" ondragstart="drag(event)">
+            <img src="photo5.jpg" class="photo" id="photo5" draggable="true" ondragstart="drag(event)">
+            <img src="photo3.jpg" class="photo" id="photo3" draggable="true" ondragstart="drag(event)">
+            <img src="photo8.jpg" class="photo" id="photo8" draggable="true" ondragstart="drag(event)">
+            <img src="photo7.jpg" class="photo" id="photo7" draggable="true" ondragstart="drag(event)">
+            <img src="photo4.jpg" class="photo" id="photo4" draggable="true" ondragstart="drag(event)">
+            <img src="photo6.jpg" class="photo" id="photo6" draggable="true" ondragstart="drag(event)">
+            <img src="photo9.jpg" class="photo" id="photo9" draggable="true" ondragstart="drag(event)">
+        </div>
+        <button class="button-validate" onclick="validateTimeline()">Valider</button>
+        <div class="error-message" id="error-message">C'EST FAUX</div>
+        <div class="success-message" id="success-message">C'est bon</div>
+    </div>
+
+    <script>
+        var currentQuestion = 0;
+        var questions = [
+            "Deja est-ce que tu es pretes mon amour ?",
+            "Vraiment pretes ?",
+            "OKK et est ce que tu m'aimes toujours ?",
+            "Vraiment vraiment vraiment ?",
+            "Tu ment pas ????"
+        ];
+
+        function handleYes() {
+            // Vibration
+            navigator.vibrate(200);
+
+            // Increase size
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                document.getElementById("question").textContent = questions[currentQuestion];
+                document.getElementById("yes-button").style.transform = "scale(" + (1 + 0.3 * currentQuestion) + ")";
+            } else {
+                document.getElementById("question").textContent = "OUEEEEE MOI AUSSI JE T'AIME MA PRINCESSE !!!! Maintenant classe ces date par ordre chronologique (triche pas!!)";
+                document.getElementById("yes-button").style.display = "none";
+                document.getElementById("no-button").style.display = "none";
+                showTimeline();
+            }
+        }
+
+        function handleNo() {
+            document.querySelector('.question-container').style.display = 'none';
+            document.getElementById('message-container').style.display = 'block';
+            setTimeout(function() {
+                document.getElementById('message-container').style.display = 'none';
+                showTimeline();
+            }, 5000); // Afficher le message pendant 5 secondes
+        }
+
+        function goBack() {
+            window.location.href = 'index.html'; // Assurez-vous que 'index.html' est le nom de votre page d'accueil
+        }
+
+        function showTimeline() {
+            document.getElementById('timeline-container').style.display = 'flex';
+        }
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drag(event) {
+            event.dataTransfer.setData("text", event.target.id);
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            var data = event.dataTransfer.getData("text");
+            var draggedElement = document.getElementById(data);
+            var targetElement = event.target;
+
+            if (targetElement.classList.contains('timeline-slot') && targetElement.children.length === 0) {
+                targetElement.appendChild(draggedElement);
+            } else if (targetElement.classList.contains('timeline-slot')) {
+                var currentElement = targetElement.children[0];
+                targetElement.appendChild(draggedElement);
+                document.getElementById('photos').appendChild(currentElement);
+            } else if (targetElement.classList.contains('photo')) {
+                var parentElement = targetElement.parentNode;
+                parentElement.appendChild(draggedElement);
+                document.getElementById('photos').appendChild(targetElement);
+            }
+        }
+
+        function validateTimeline() {
+            const slots = document.querySelectorAll('.timeline-slot');
+            let isCorrect = true;
+            slots.forEach(slot => {
+                if (slot.children.length > 0) {
+                    const photoId = slot.children[0].id.replace('photo', '');
+                    const slotId = slot.id.replace('slot', '');
+                    if (photoId !== slotId) {
+                        isCorrect = false;
+                    }
+                } else {
+                    isCorrect = false;
+                }
+            });
+
+            if (isCorrect) {
+                document.getElementById('success-message').style.display = 'block';
+                setTimeout(() => {
+                    window.location.href = 'flower.html';
+                }, 2000);
+            } else {
+                document.getElementById('error-message').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('error-message').style.display = 'none';
+                }, 2000);
+                resetPhotos();
+            }
+        }
+
+        function resetPhotos() {
+            const photosContainer = document.getElementById('photos');
+            const photos = photosContainer.querySelectorAll('.photo');
+            photos.forEach(photo => {
+                photosContainer.appendChild(photo);
+            });
+        }
+
+        document.querySelectorAll('.timeline-slot').forEach(slot => {
+            slot.addEventListener('dragover', allowDrop);
+            slot.addEventListener('drop', drop);
+        });
+
+        setInterval(function() {
+            var r_num = Math.floor(Math.random() * 40) + 1;
+            var r_size = Math.floor(Math.random() * 65) + 10;
+            var r_left = Math.floor(Math.random() * 100) + 1;
+            var r_bg = Math.floor(Math.random() * 25) + 100;
+            var r_time = Math.floor(Math.random() * 5) + 5;
+
+            const heart1 = document.createElement('div');
+            heart1.className = 'heart';
+            heart1.style.width = r_size + 'px';
+            heart1.style.height = r_size + 'px';
+            heart1.style.left = r_left + '%';
+            heart1.style.background = `rgba(255,${r_bg - 25},${r_bg},1)`;
+            heart1.style.animation = `love ${r_time}s ease`;
+            document.querySelector('.bg_heart').appendChild(heart1);
+
+            const heart2 = document.createElement('div');
+            heart2.className = 'heart';
+            heart2.style.width = (r_size - 10) + 'px';
+            heart2.style.height = (r_size - 10) + 'px';
+            heart2.style.left = (r_left + r_num) + '%';
+            heart2.style.background = `rgba(255,${r_bg - 25},${r_bg + 25},1)`;
+            heart2.style.animation = `love ${r_time + 5}s ease`;
+            document.querySelector('.bg_heart').appendChild(heart2);
+
+            document.querySelectorAll('.heart').forEach(function(heart) {
+                var top = parseFloat(window.getComputedStyle(heart).top);
+                var width = parseFloat(window.getComputedStyle(heart).width);
+                if (top <= -100 || width >= 150) {
+                    heart.remove();
+                }
+            });
+        }, 200); // Reduced interval for higher frequency
+    </script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .bg_heart {
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #ff9bb3; /* Background color matching the hearts */
+        }
+
+        .heart {
+            position: absolute;
+            top: -50%;
+            transform: rotate(-45deg);
+        }
+
+        .heart:before, .heart:after {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: 100%;
+        }
+
+        .heart:before {
+            top: -50%;
+            left: 0;
+        }
+
+        .heart:after {
+            top: 0;
+            right: -50%;
+        }
+
+        @keyframes love {
+            0% { top: 110%; }
+            100% { top: -10%; }
+        }
+
+        .title-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 5%;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .arc-svg {
+            width: 80%;
+            height: auto;
+        }
+
+        .arc-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 24px; /* Adjust font size as needed */
+            fill: #FF69B4; /* Hot pink color */
+        }
+
+        .login-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #cc33ff; /* Light violet background */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            z-index: 1;
+            color: white; /* Text color for better contrast */
+        }
+
+        .login-container h2 {
+            margin: 0 0 20px;
+            text-align: center;
+        }
+
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #fff; /* Border color matching text */
+            border-radius: 5px;
+            background-color: #ffb3d9; /* Light pink background for inputs */
+            color: black; /* Text color inside inputs */
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff66b2; /* Bright pink button */
+            color: white; /* Text color for button */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .login-container button:hover {
+            background-color: #ff3399; /* Darker pink on hover */
+        }
+
+        .error {
+            color: #ffccff; /* Light pink for error messages */
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .clickable {
+            color: #FF69B4; /* Hot pink color */
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        #hintBubble {
+            background-color: #cc33ff; /* Light violet background */
+            color: white;
+            border-radius: 5px;
+            padding: 10px;
+            position: absolute;
+            top: 50%; /* Adjust position as needed */
+            left: 20%;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000; /* Ensure it is on top */ 
+            width: 200px; /* adjust to control the size */
+        }
+
+        #hintBubble::before {
+            content: "";
+            position: absolute;
+            top: -10px; /* Adjust position as needed */
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 10px;
+            border-style: solid;
+            border-color: transparent transparent #cc33ff transparent;
+        }
+        .hidden {display: none;}
+
+    </style>
+</head>
+<body>
+    <div class="bg_heart"></div>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <p id="hintText"> Besoins d'indice ? <span class="clickable">Clique ici</span></p>
+            <button type="submit">Login</button>
+        </form>
+        <div class="error" id="errorMessage"></div>
+    </div>
+    <div id="hintBubble" class="hidden">Username : La fille parfaite 🙈 <br> Password : 1er date (JJ/MM/YYY) </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Static username and password for demonstration purposes
+            const validUsername = 'silya';
+            const validPassword = '26/05/2023';
+
+            if (username === validUsername && password === validPassword) {
+                errorMessage.textContent = 'Login successful!';
+                errorMessage.style.color = 'green';
+                //redirecct to youtube
+                setTimeout(() => {
+                    window.location.href = 'time.html'; // Assurez-vous que ce fichier existe
+                }, 1000);
+            } else {
+                errorMessage.textContent = 'Invalid username or password';
+            }
+        });
+    
+        document.querySelector('.clickable').addEventListener('click', function() {
+            var hintBubble = document.getElementById('hintBubble');
+            hintBubble.classList.toggle('hidden');
+        });
+    
+        setInterval(function() {
+            var r_num = Math.floor(Math.random() * 40) + 1;
+            var r_size = Math.floor(Math.random() * 65) + 10;
+            var r_left = Math.floor(Math.random() * 100) + 1;
+            var r_bg = Math.floor(Math.random() * 25) + 100;
+            var r_time = Math.floor(Math.random() * 5) + 5;
+    
+            const heart1 = document.createElement('div');
+            heart1.className = 'heart';
+            heart1.style.width = r_size + 'px';
+            heart1.style.height = r_size + 'px';
+            heart1.style.left = r_left + '%';
+            heart1.style.background = `rgba(255,${r_bg - 25},${r_bg},1)`;
+            heart1.style.animation = `love ${r_time}s ease`;
+            document.querySelector('.bg_heart').appendChild(heart1);
+    
+            const heart2 = document.createElement('div');
+            heart2.className = 'heart';
+            heart2.style.width = (r_size - 10) + 'px';
+            heart2.style.height = (r_size - 10) + 'px';
+            heart2.style.left = (r_left + r_num) + '%';
+            heart2.style.background = `rgba(255,${r_bg - 25},${r_bg + 25},1)`;
+            heart2.style.animation = `love ${r_time + 5}s ease`;
+            document.querySelector('.bg_heart').appendChild(heart2);
+    
+            document.querySelectorAll('.heart').forEach(function(heart) {
+                var top = parseFloat(window.getComputedStyle(heart).top);
+                var width = parseFloat(window.getComputedStyle(heart).width);
+                if (top <= -100 || width >= 150) {
+                    heart.remove();
+                }
+            });
+        }, 200); // Reduced interval for higher frequency
+    </script>
+</body>
+</html>

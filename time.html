@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta charset="UTF-8">
+    <title>SURPRISE!!!</title>
+    <link rel="stylesheet" type="text/css" href="./css/format.css">
+</head>
+
+<body style="margin:0px">
+    <canvas></canvas>
+
+    <div id="content">
+        <h2 id="together">Nous sommes ensemble depuis</h2>
+        <div id="timer">
+            <b id="d"></b> Jours    
+            <b id="h"></b> Heures
+            <b id="m"></b> Minutes
+            <b id="s"></b> Secondes
+        </div>
+        <h2 id="together">Et jusqu'a la fin des temps ♾️ </h2>
+    </div>
+
+    <div id="typeDiv">
+        <span id="txt1"></span> <br />
+        <span id="txt2"></span>
+    </div>      
+
+    <button id="start" onclick="start()">Click me</button>
+
+    <script>
+        var ok = 0;
+        var flag = 1;
+        var myTxt = document.getElementById("Txt");            
+        var t = 0;
+
+        function start() {
+            window.location.href = 'questions.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+        setTimeout(function() {
+            document.getElementById('start').style.display = 'block'; // Affiche le bouton
+        }, 5000); // Remplacez * par le nombre de secondes d'attente
+    });
+    </script>
+    
+    <script type="text/javascript" src="./js/stars.js"></script>
+    <script type="text/javascript" src="./js/typeWriter.js"></script>
+    <script type="text/javascript" src="./js/date.js"></script>
+    <script type="text/javascript" src="./js/playImg.js"></script>
+</body>
+</html>
